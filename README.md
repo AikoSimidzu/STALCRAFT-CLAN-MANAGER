@@ -11,7 +11,9 @@
 За явку начисляются SR. Если у человека мало SR- можно смело кикать. (Max 120)
 
 -Отправка отрядов сразу в Discord
+
 -Отправка конфига с игроками (после формирования) в Discord
+
 -Сортировка игроков по параметрам (для подведении статистики и т.д.)
 
 [СКАЧАТЬ](https://github.com/AikoSimidzu/STALCRAFT-CLAN-MANAGER/releases/download/1.0.0/StalcraftClanManager.rar)
