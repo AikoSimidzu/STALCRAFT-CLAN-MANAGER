@@ -1,0 +1,2 @@
+# STALCRAFT-CLAN-MANAGER
+Клан менеджер для STALCRAFT:X
