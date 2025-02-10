@@ -1,0 +1,35 @@
+﻿<Window x:Class="StalcraftClanManager.Notification"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StalcraftClanManager"
+        mc:Ignorable="d"
+        Title="Notification" Height="140" Width="320"
+        WindowStyle="None"
+        Background="#01FFFFFF"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+        WindowStartupLocation="CenterScreen">
+
+    <Border Background="#1d1a1d" CornerRadius="20" BorderThickness="2" BorderBrush="#1FC1A4">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="5"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Предупреждение" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Foreground="White"/>
+
+            <Button x:Name="clsoe" Content="X" Grid.Column="1" Style="{StaticResource stdButton}" Click="clsoe_Click"/>
+
+            <Label x:Name="message" Content="Text" FontSize="15" Grid.Row="1" Grid.ColumnSpan="2" Foreground="White"/>
+        </Grid>
+    </Border>
+</Window>

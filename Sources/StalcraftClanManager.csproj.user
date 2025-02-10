@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_LastSelectedProfileId>C:\Users\steal\source\repos\StalcraftClanManager\StalcraftClanManager\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
+  </PropertyGroup>
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="FrontEnd\CControls\PlateButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Notification.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Panels\AddUserPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Panels\HomePanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Panels\SettingsPanel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UserChange.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="FrontEnd\buttonsStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FrontEnd\CControls\PlateButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FrontEnd\ContextMenuStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FrontEnd\dataGridStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FrontEnd\scrollStyle.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Notification.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Panels\AddUserPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Panels\HomePanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Panels\SettingsPanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserChange.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

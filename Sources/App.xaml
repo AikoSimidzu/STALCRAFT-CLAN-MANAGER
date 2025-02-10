@@ -1,0 +1,28 @@
+﻿<Application x:Class="StalcraftClanManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:StalcraftClanManager"
+             xmlns:viewModel="clr-namespace:StalcraftClanManager.MVVM.ViewModel" 
+             xmlns:view="clr-namespace:StalcraftClanManager.Panels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomePanel/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+                <view:SettingsPanel/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AddUserViewModel}">
+                <view:AddUserPanel/>
+            </DataTemplate>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FrontEnd/buttonsStyle.xaml"/>
+                <ResourceDictionary Source="/FrontEnd/scrollStyle.xaml"/>
+                <ResourceDictionary Source="/FrontEnd/dataGridStyle.xaml"/>
+                <ResourceDictionary Source="/FrontEnd/ContextMenuStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="StalcraftClanManager.Panels.SettingsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StalcraftClanManager.Panels"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="930">
+    <Grid>
+        <Label Content="Discord Token" Foreground="White" FontSize="18" Margin="9,10,779,456"/>
+        <TextBox x:Name="dToken" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15" Margin="166,17,564,463"/>
+
+        <Label Content="ChannelID" Foreground="White" FontSize="18" Margin="10,61,813,405"/>
+        <TextBox x:Name="dChannelID" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15" Margin="133,68,597,412"/>
+
+        <Label Content="ChannelID for config" Foreground="White" FontSize="18" Margin="10,109,731,357"/>
+        <TextBox x:Name="dChannelIDF" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15" Margin="199,116,531,364"/>
+
+        <Button x:Name="disSave" Click="disSave_Click" Content="Сохранить" Style="{StaticResource stdButton}" FontSize="15" HorizontalAlignment="Left" Margin="74,160,0,310" Width="135"/>
+    </Grid>
+</UserControl>

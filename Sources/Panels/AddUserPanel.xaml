@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="StalcraftClanManager.Panels.AddUserPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StalcraftClanManager.Panels"
+             xmlns:ccontr="clr-namespace:StalcraftClanManager.FrontEnd.CControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="930">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="pName" Grid.Row="1" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        <TextBox x:Name="pArmor" Grid.Row="2" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        <TextBox x:Name="pWeapon" Grid.Row="3" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        <TextBox x:Name="pRifle" Grid.Row="4" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        <TextBox x:Name="pGS" Grid.Row="5" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        <CheckBox x:Name="pBio" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="1" Margin="83,5,172,5"/>
+        <CheckBox x:Name="pSpeed" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="2" Margin="92,5,163,5"/>
+
+        <Label Content="Имя" Grid.Row="1" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
+        <Label Content="Броня" Grid.Row="2" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
+        <Label Content="Оружие" Grid.Row="3" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
+        <Label Content="Винтовка" Grid.Row="4" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
+        <Label Content="Приведа" Grid.Row="5" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
+        <Label Content="Есть био" Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="15" Margin="0,0,218,0"/>
+        <Label Content="Есть ралик" Grid.Row="2" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,206,0"/>
+        <Label Content="Не может играть по:" Grid.Row="6" FontSize="15" Foreground="White"/>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,26,0,0">
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Monday" Text="ПН"/>
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Tuesday" Text="ВТ"/>
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Wednesday" Text="СР"/>
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Thursday" Text="ЧТ"/>
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Friday" Text="ПТ"/>
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Saturday" Text="СБ"/>
+            <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Sunday" Text="ВС"/>
+        </StackPanel>
+
+        <Button Grid.Row="7" Grid.Column="2" x:Name="addPlayer" Content="Добавить" Click="addPlayer_Click" Foreground="White" Style="{StaticResource stdButton}" FontSize="15" Width="137" HorizontalAlignment="Right"/>
+    </Grid>
+</UserControl>

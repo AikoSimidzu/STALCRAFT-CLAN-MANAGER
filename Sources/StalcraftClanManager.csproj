@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <LangVersion>preview</LangVersion>
+    <ApplicationIcon>death.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="home.png" />
+    <None Remove="new-user.png" />
+    <None Remove="Properties\Resources.resx~RF45ad47.TMP" />
+    <None Remove="setting.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="death.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="home.png" />
+    <Resource Include="new-user.png" />
+    <Resource Include="setting.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+</Project>

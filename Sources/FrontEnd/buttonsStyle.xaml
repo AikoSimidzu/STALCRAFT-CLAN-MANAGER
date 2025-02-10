@@ -1,0 +1,78 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="stdButton" TargetType="Button">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="#01FFFFFF"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="10" Background= "{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#1FC1A4"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="imageButton" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border CornerRadius="10" Background= "{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="35"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="toggleButton" TargetType="{x:Type CheckBox}">
+        <Setter Property="Background" Value="#01FFFFFF"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="45"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Border Background="#01FFFFFF" CornerRadius="10" BorderThickness="2" BorderBrush="#1FC1A4" Height="20" Width="45">
+                        <Ellipse Height="15" Width="15" Fill="White" HorizontalAlignment="Left"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="CheckBox">
+                            <Border Background="#1FC1A4" CornerRadius="10" BorderThickness="2" BorderBrush="#1FC1A4" Height="20" Width="45">
+                                <Ellipse Height="15" Width="15" Fill="White" HorizontalAlignment="Right"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
