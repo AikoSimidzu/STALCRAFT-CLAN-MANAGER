@@ -32,9 +32,8 @@
 
     public struct DiscordData
     {
-        public string Token { get; set; }
-        public string ChannelID { get; set; }
-        public string ChannelIDForConfig { get; set; }
+        public string WebHook { get; set; }
+        public string WebHookForTable { get; set; }
     }
 
     public class Player : INotifyPropertyChanged

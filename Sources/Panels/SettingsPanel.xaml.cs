@@ -18,12 +18,19 @@
 
         private void disSave_Click(object sender, RoutedEventArgs e)
         {
-            DiscordData ds = new DiscordData { Token = dToken.Text, ChannelID = dChannelID.Text, ChannelIDForConfig = dChannelIDF.Text };
+            DiscordData ds = new DiscordData { WebHook = webHook.Text, WebHookForTable = webHookFT.Text };
             File.WriteAllText(System.IO.Path.Combine(Environment.CurrentDirectory, "Discord.cfg"), JsonSerializer.Serialize(ds));
 
             Notification notification = new Notification();
             notification.Message = "Успешно сохранено!";
             notification.Show();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DiscordData dsData = Discord.LoadData();
+            webHook.Text = dsData.WebHook;
+            webHookFT.Text = dsData.WebHookForTable;
         }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.IO;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -78,10 +76,10 @@ namespace StalcraftClanManager.Panels
 
                 Manager.InitPlayers(players, white);
 
-                Discord.Send(dsData.Token, dsData.ChannelID, Manager.Calculate((bool)withBio.IsChecked, (bool)withSpeed.IsChecked));
-                if (dsData.ChannelIDForConfig.Length > 0)
+                Discord.Send(dsData.WebHook, Manager.Calculate((bool)withBio.IsChecked, (bool)withSpeed.IsChecked));
+                if (dsData.WebHookForTable.Length > 0)
                 {
-                    Discord.SendFile(dsData.Token, dsData.ChannelIDForConfig);
+                    Discord.SendFile(dsData.WebHookForTable);
                 }
                 Notification notification = new Notification();
                 notification.Message = "Отряды успешно сформированы \nи отправлены в дискорд!";
