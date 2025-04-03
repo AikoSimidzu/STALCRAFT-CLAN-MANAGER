@@ -74,13 +74,15 @@ namespace StalcraftClanManager.Panels
                     }
                 }
 
-                Manager.InitPlayers(players, white);
-
-                Discord.Send(dsData.WebHook, Manager.Calculate((bool)withBio.IsChecked, (bool)withSpeed.IsChecked));
-                if (dsData.WebHookForTable.Length > 0)
+                using (Manager manager = new Manager(players, white))
                 {
-                    Discord.SendFile(dsData.WebHookForTable);
+                    Discord.Send(dsData.WebHook, manager.Calculate((bool)withBio.IsChecked, (bool)withSpeed.IsChecked));
+                    if (dsData.WebHookForTable.Length > 0)
+                    {
+                        Discord.SendFile(dsData.WebHookForTable);
+                    }
                 }
+
                 Notification notification = new Notification();
                 notification.Message = "Отряды успешно сформированы \nи отправлены в дискорд!";
                 notification.Show();
@@ -108,14 +110,26 @@ namespace StalcraftClanManager.Panels
                     }
                 }
 
-                Manager.InitPlayers(players, white);
-
-                Clipboard.SetText(Manager.Calculate((bool)withBio.IsChecked, (bool)withSpeed.IsChecked));
+                using (Manager manager = new Manager(players, white))
+                {
+                    Clipboard.SetText(manager.Calculate((bool)withBio.IsChecked, (bool)withSpeed.IsChecked));
+                }
 
                 Notification notification = new Notification();
                 notification.Message = "Отряды успешно сформированы \nи скопированы в буффер!";
                 notification.Show();
             }
+        }
+
+        private void sendConfig_Click(object sender, RoutedEventArgs e)
+        {
+            if (dsData.WebHookForTable.Length > 0)
+            {
+                Discord.SendFile(dsData.WebHookForTable);
+            }
+            Notification notification = new Notification();
+            notification.Message = "Конфиг отправлен в дискорд!";
+            notification.Show();
         }
     }
 }

@@ -5,78 +5,23 @@
     using System.IO;
     using System.Text.Json;
 
-    internal class Manager
+    internal class Manager : IDisposable
     {        
-        private static ObservableCollection<Player> Players = new();
-        private static ObservableCollection<string> WhiteList = new();
+        private ObservableCollection<Player> Players = new();
+        private ObservableCollection<string> WhiteList = new();
 
         public static ObservableCollection<Player> PlayersInClan = new();
         public static Team _Team = new Team() { Squads = new() };
         public static Player PlayerDataForChange = new Player();
 
-        #region DB
-        public static void removePlayerFromClan(Player player)
-        {
-            PlayersInClan.Remove(player); 
-            Players.Remove(player);
-            SaveDB();
-        }
-
-        public static void addPlayerToClan(Player player)
-        {
-            PlayersInClan.Add(player);
-            SaveDB();
-        }
-
-        public static void changePlayerData(Player oldPlayerData, Player newPlayerData)
-        {
-            for (int i = 0; i < PlayersInClan.Count; i++)
-            {
-                if (PlayersInClan[i].Name == oldPlayerData.Name)
-                {
-                    PlayersInClan[i] = newPlayerData;
-                    SaveDB();
-                    break;
-                }
-            }
-        }
-
-        private static void SaveDB()
-        {
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
-            {
-                File.Delete(Path.Combine(Environment.CurrentDirectory, "Players.cfg"));
-            }
-            foreach (Player player in PlayersInClan) 
-            {
-                Player temp = player;
-                temp.doNotPlay = false;
-                temp.haveCause = false;
-                File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "Players.cfg"), JsonSerializer.Serialize(temp) + "\n");
-            }
-        }
-
-        public static void getPlayers() 
-        {
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
-            {
-                foreach (string s in File.ReadLines(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
-                {
-                    Player player = JsonSerializer.Deserialize<Player>(s);
-                    PlayersInClan.Add(player);
-                }
-            }
-        }
-
-        public static void InitPlayers(ObservableCollection<Player> players, ObservableCollection<string> whiteList)
+        public Manager(ObservableCollection<Player> players, ObservableCollection<string> whiteList)
         {
             Players = players;
             WhiteList = whiteList;
         }
-        #endregion
 
         #region Калькулятор
-        public static string Calculate(bool withBio, bool withSpeed)
+        public string Calculate(bool withBio, bool withSpeed)
         {
             int squadsCount = (int)Math.Ceiling((double)(Players.Count / 5));
             for (int i = 0; i <= squadsCount; i++)
@@ -103,21 +48,21 @@
                 if (WhiteList.Contains(player.Name))
                 { continue; }
 
-                if (withBio && player.HaveBio)
+                if (withBio && player.HaveBio && _Team.Squads[4].Players.Count < 5)
                 {
-                    if (_Team.Squads[4].Players.Count < 5)
-                    {
-                        _Team.Squads[4].Players.Add(player);
-                        continue;
-                    }
+                    _Team.Squads[4].Players.Add(player);
+                    continue;
                 }
-                if (withSpeed && player.HaveSpeed)
+
+                if (withSpeed && player.HaveSpeed && _Team.Squads[5].Players.Count < 5)
                 {
-                    if (_Team.Squads[5].Players.Count < 5)
-                    {
-                        _Team.Squads[5].Players.Add(player);
-                        continue;
-                    }
+                    _Team.Squads[5].Players.Add(player);
+                    continue;
+                }
+
+                if (_Team.Squads[index].Players.Count < 5 && player.HaveFight)
+                {
+                    _Team.Squads[index].Players.Add(player);
                 }
 
                 if (index < squadsCount)
@@ -125,18 +70,13 @@
                     index++;
                 }
                 else { index = 0; }
-
-                if (_Team.Squads[index].Players.Count < 5)
-                {
-                    _Team.Squads[index].Players.Add(player);
-                }
             }
 
             calculateSR();
             return NormalizeList();
         }
 
-        private static void calculateSR()
+        private void calculateSR()
         {
             ObservableCollection<Player> temp = new(); 
             string today = DateTime.Today.DayOfWeek.ToString();
@@ -166,7 +106,7 @@
             SaveDB();
         }
 
-        private static string NormalizeList()
+        private string NormalizeList()
         {
             string result = "";
 
@@ -184,5 +124,66 @@
             return result;
         }
         #endregion
+
+        #region DB
+        public static void removePlayerFromClan(Player player)
+        {
+            PlayersInClan.Remove(player);
+            SaveDB();
+        }
+
+        public static void addPlayerToClan(Player player)
+        {
+            PlayersInClan.Add(player);
+            SaveDB();
+        }
+
+        public static void changePlayerData(Player oldPlayerData, Player newPlayerData)
+        {
+            for (int i = 0; i < PlayersInClan.Count; i++)
+            {
+                if (PlayersInClan[i].Name == oldPlayerData.Name)
+                {
+                    PlayersInClan[i] = newPlayerData;
+                    SaveDB();
+                    break;
+                }
+            }
+        }
+
+        private static void SaveDB()
+        {
+            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
+            {
+                File.Delete(Path.Combine(Environment.CurrentDirectory, "Players.cfg"));
+            }
+            foreach (Player player in PlayersInClan)
+            {
+                Player temp = player;
+                temp.doNotPlay = false;
+                temp.haveCause = false;
+                File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "Players.cfg"), JsonSerializer.Serialize(temp) + "\n");
+            }
+        }
+
+        public static void getPlayers()
+        {
+            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
+            {
+                foreach (string s in File.ReadLines(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
+                {
+                    Player player = JsonSerializer.Deserialize<Player>(s);
+                    PlayersInClan.Add(player);
+                }
+            }
+        }
+        #endregion
+
+        public void Dispose()
+        {
+            Players.Clear();
+            WhiteList.Clear();
+            _Team.Squads.Clear();
+        }
     }
 }

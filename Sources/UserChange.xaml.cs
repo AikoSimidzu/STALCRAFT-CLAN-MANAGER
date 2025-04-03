@@ -62,6 +62,7 @@ namespace StalcraftClanManager
                 GS = int.Parse(pGS.Text),
                 HaveBio = (bool)pBio.IsChecked,
                 HaveSpeed = (bool)pSpeed.IsChecked,
+                HaveFight = (bool)pFight.IsChecked,
                 SocialRating = int.Parse(pSR.Text),
                 WhenCantPlay = daysList
             };
@@ -86,6 +87,7 @@ namespace StalcraftClanManager
             pGS.Text = pl.GS.ToString();
             pBio.IsChecked = pl.HaveBio;
             pSpeed.IsChecked = pl.HaveSpeed;
+            pFight.IsChecked = pl.HaveFight;
             pSR.Text = pl.SocialRating.ToString();
         }
 

@@ -67,6 +67,7 @@ namespace StalcraftClanManager.Panels
                 GS = int.Parse(pGS.Text),
                 HaveBio = (bool)pBio.IsChecked,
                 HaveSpeed = (bool)pSpeed.IsChecked,
+                HaveFight = (bool)pFight.IsChecked,
                 SocialRating = 100,
                 WhenCantPlay = daysList
             };

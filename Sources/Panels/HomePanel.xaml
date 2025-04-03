@@ -67,6 +67,7 @@
             <Label Content="С раликом" Grid.Column="1" FontSize="15" Foreground="White" VerticalAlignment="Center"/>
             <CheckBox x:Name="withSpeed" Grid.Column="1" Style="{StaticResource toggleButton}" VerticalAlignment="Center" Margin="92,0,13,0"/>
 
+            <Button x:Name="sendConfig" Grid.Column="2" HorizontalAlignment="Center" Click="sendConfig_Click" Style="{StaticResource stdButton}" Content="Отправить конфиг" FontSize="15" Height="30" Width="160"/>
             <Button x:Name="sendToDiscord" Grid.Column="3" HorizontalAlignment="Left" Click="sendToDiscord_Click" Style="{StaticResource stdButton}" Content="Отправить в дискорд" FontSize="15" Height="30" Width="160"/>
             <Button x:Name="formate" Grid.Column="4" Content="Сформировать" Click="formate_Click" FontSize="15"  Width="150" HorizontalAlignment="Left" Style="{StaticResource stdButton}"/>
         </Grid>
