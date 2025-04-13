@@ -64,7 +64,8 @@ namespace StalcraftClanManager
                 HaveSpeed = (bool)pSpeed.IsChecked,
                 HaveFight = (bool)pFight.IsChecked,
                 SocialRating = int.Parse(pSR.Text),
-                WhenCantPlay = daysList
+                WhenCantPlay = daysList,
+                SquadLeader = (bool)pSquadLeader.IsChecked
             };
             
             Manager.changePlayerData(Manager.PlayerDataForChange, player);
@@ -89,6 +90,7 @@ namespace StalcraftClanManager
             pSpeed.IsChecked = pl.HaveSpeed;
             pFight.IsChecked = pl.HaveFight;
             pSR.Text = pl.SocialRating.ToString();
+            pSquadLeader.IsChecked = pl.SquadLeader;
         }
 
         private void clsoe_Click(object sender, RoutedEventArgs e)

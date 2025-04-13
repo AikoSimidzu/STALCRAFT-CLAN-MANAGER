@@ -12,7 +12,7 @@
 
         public static ObservableCollection<Player> PlayersInClan = new();
         public static Team _Team = new Team() { Squads = new() };
-        public static Player PlayerDataForChange = new Player();
+        public static Player PlayerDataForChange = new();
 
         public Manager(ObservableCollection<Player> players, ObservableCollection<string> whiteList)
         {
@@ -23,6 +23,10 @@
         #region Калькулятор
         public string Calculate(bool withBio, bool withSpeed)
         {
+            const int squadSize = 5;
+            var squads = _Team.Squads;
+            squads.Clear();
+
             int squadsCount = (int)Math.Ceiling((double)(Players.Count / 5));
             for (int i = 0; i <= squadsCount; i++)
             {
@@ -40,40 +44,57 @@
                 _Team.Squads.Add(new Squad() { Name = $"`БОЁВКА {i + 1}`", Players = new() });
             }
 
-            var sortedPlayers = Players.OrderByDescending(p => p.GS).ToList();
-            int index = 0;
+            var whiteListSet = new HashSet<string>(WhiteList);
+            var leaders = Players
+                .Where(p => p.SquadLeader && !whiteListSet.Contains(p.Name))
+                .ToList();
 
-            foreach (var player in sortedPlayers)
+            var regularPlayers = Players
+                .Where(p => !p.SquadLeader && !whiteListSet.Contains(p.Name))
+                .OrderByDescending(p => p.GS)
+                .ToList();
+
+            void ProcessPlayer(Player player, bool isLeader)
             {
-                if (WhiteList.Contains(player.Name))
-                { continue; }
+                if (TryAddToSpecialSquad(player, 4, p => p.HaveBio) ||
+                    TryAddToSpecialSquad(player, 5, p => p.HaveSpeed))
+                    return;
 
-                if (withBio && player.HaveBio && _Team.Squads[4].Players.Count < 5)
-                {
-                    _Team.Squads[4].Players.Add(player);
-                    continue;
-                }
+                if (!player.HaveFight) return;
 
-                if (withSpeed && player.HaveSpeed && _Team.Squads[5].Players.Count < 5)
-                {
-                    _Team.Squads[5].Players.Add(player);
-                    continue;
-                }
+                var targetSquad = squads
+                    .Take(squadsCount)
+                    .FirstOrDefault(s => s.Players.Count < squadSize);
 
-                if (_Team.Squads[index].Players.Count < 5 && player.HaveFight)
+                if (targetSquad != null)
                 {
-                    _Team.Squads[index].Players.Add(player);
+                    if (isLeader)
+                        targetSquad.Players.Insert(0, player);
+                    else
+                        targetSquad.Players.Add(player);
                 }
-
-                if (index < squadsCount)
-                {
-                    index++;
-                }
-                else { index = 0; }
             }
+
+            leaders.ForEach(p => ProcessPlayer(p, isLeader: true));
+            regularPlayers.ForEach(p => ProcessPlayer(p, isLeader: false));
 
             calculateSR();
             return NormalizeList();
+
+            bool TryAddToSpecialSquad(Player p, int index, Func<Player, bool> condition)
+            {
+                if (index < 0 || !condition(p)) return false;
+
+                var squad = squads[index];
+                if (squad.Players.Count >= squadSize) return false;
+
+                if (p.SquadLeader)
+                    squad.Players.Insert(0, p);
+                else
+                    squad.Players.Add(p);
+
+                return true;
+            }
         }
 
         private void calculateSR()

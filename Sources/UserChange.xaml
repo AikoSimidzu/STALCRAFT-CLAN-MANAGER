@@ -36,7 +36,9 @@
         <TextBox x:Name="pWeapon" Grid.Row="3" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
         <TextBox x:Name="pRifle" Grid.Row="4" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
         <TextBox x:Name="pGS" Grid.Row="5" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
-        <TextBox x:Name="pSR" Grid.Row="4" Grid.Column="1" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        <TextBox x:Name="pSR" Grid.Row="5" Grid.Column="1" Background="#01FFFFFF" Foreground="White" BorderThickness="0,0,0,1" VerticalContentAlignment="Center" Height="20" Width="200" FontSize="15"/>
+        
+        <CheckBox x:Name="pSquadLeader" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="4" Margin="115,5,140,5"/>
         <CheckBox x:Name="pBio" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="1" Margin="83,5,172,5"/>
         <CheckBox x:Name="pSpeed" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="2" Margin="92,5,163,5"/>
         <CheckBox x:Name="pFight" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="3" Margin="87,5,168,5"/>
@@ -49,6 +51,7 @@
         <Label Content="Есть био" Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="15" Margin="0,0,218,0"/>
         <Label Content="Есть ралик" Grid.Row="2" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,206,0"/>
         <Label Content="Есть бой" Grid.Row="3" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,218,0"/>
+        <Label Content="Лидер отряда" Grid.Row="4" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,190,0"/>
         <Label Content="Не может играть по:" Grid.Row="6" FontSize="15" Foreground="White"/>
         <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,26,0,0">
             <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Monday" Text="ПН"/>
@@ -59,7 +62,7 @@
             <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Saturday" Text="СБ"/>
             <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Sunday" Text="ВС"/>
         </StackPanel>
-        <Label Content="SR" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
+        <Label Content="SR" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
 
         <Button Grid.Row="7" Grid.Column="2" x:Name="savePlayer" Content="Сохранить" Click="savePlayer_Click" Foreground="White" Style="{StaticResource stdButton}" FontSize="15" Width="137" HorizontalAlignment="Right"/>
         <Button x:Name="clsoe" Style="{StaticResource stdButton}" Grid.Column="2" HorizontalAlignment="Right" Content="X" FontSize="15" Click="clsoe_Click"/>

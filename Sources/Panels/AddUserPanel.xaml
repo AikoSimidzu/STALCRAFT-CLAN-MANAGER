@@ -33,6 +33,7 @@
         <CheckBox x:Name="pBio" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="1" Margin="83,5,172,5"/>
         <CheckBox x:Name="pSpeed" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="2" Margin="92,5,163,5"/>
         <CheckBox x:Name="pFight" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="3" Margin="82,5,173,5"/>
+        <CheckBox x:Name="pSquadLeader" Style="{StaticResource toggleButton}" Grid.Column="1" Grid.Row="4" Margin="113,5,142,5"/>
 
         <Label Content="Имя" Grid.Row="1" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
         <Label Content="Броня" Grid.Row="2" HorizontalAlignment="Left" Foreground="White" FontSize="15"/>
@@ -42,6 +43,7 @@
         <Label Content="Есть био" Grid.Row="1" Grid.Column="1" Foreground="White" FontSize="15" Margin="0,0,218,0"/>
         <Label Content="Есть ралик" Grid.Row="2" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,206,0"/>
         <Label Content="Есть бой" Grid.Row="3" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,218,0"/>
+        <Label Content="Лидер отряда" Grid.Row="4" Foreground="White" FontSize="15" Grid.ColumnSpan="2" Margin="399,0,186,0"/>
         <Label Content="Не может играть по:" Grid.Row="6" FontSize="15" Foreground="White"/>
         <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,26,0,0">
             <ccontr:PlateButton inactiveColor="#2d2d2d" activatedColor="#1FC1A4" Width="35" Margin="5 5 5 5" Height="35" x:Name="Monday" Text="ПН"/>

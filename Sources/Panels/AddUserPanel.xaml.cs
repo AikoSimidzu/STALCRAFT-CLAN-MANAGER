@@ -69,7 +69,8 @@ namespace StalcraftClanManager.Panels
                 HaveSpeed = (bool)pSpeed.IsChecked,
                 HaveFight = (bool)pFight.IsChecked,
                 SocialRating = 100,
-                WhenCantPlay = daysList
+                WhenCantPlay = daysList,
+                SquadLeader = (bool)pSquadLeader.IsChecked
             };
             Manager.addPlayerToClan(player);
             Visibility = Visibility.Hidden;
