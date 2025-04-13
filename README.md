@@ -1,7 +1,7 @@
 # STALCRAFT-CLAN-MANAGER
 Клан менеджер для STALCRAFT:X
 
-[SS](https://raw.githubusercontent.com/AikoSimidzu/STALCRAFT-CLAN-MANAGER/blob/main/screen.png)
+![SS](https://github.com/AikoSimidzu/STALCRAFT-CLAN-MANAGER/blob/main/screen.png)
 
 # ВОЗМОЖНОСТИ
 -Формирование отрядов (фулл боевка, с раликом, с био или всё вместе). 
