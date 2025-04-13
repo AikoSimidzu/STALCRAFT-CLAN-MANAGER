@@ -1,9 +1,12 @@
-﻿namespace StalcraftClanManager
+namespace StalcraftClanManager
 {
     using System;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Text;
+    using System.Text.Encodings.Web;
     using System.Text.Json;
+    using System.Text.Unicode;
 
     internal class Manager : IDisposable
     {        
@@ -174,17 +177,15 @@
 
         private static void SaveDB()
         {
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
-            {
-                File.Delete(Path.Combine(Environment.CurrentDirectory, "Players.cfg"));
-            }
+            StringBuilder stringBuilder = new StringBuilder();
             foreach (Player player in PlayersInClan)
             {
                 Player temp = player;
                 temp.doNotPlay = false;
                 temp.haveCause = false;
-                File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "Players.cfg"), JsonSerializer.Serialize(temp) + "\n");
+                stringBuilder.Append(JsonSerializer.Serialize(temp, new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = false }) + "\n");
             }
+            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Players.cfg"), stringBuilder.ToString());
         }
 
         public static void getPlayers()
