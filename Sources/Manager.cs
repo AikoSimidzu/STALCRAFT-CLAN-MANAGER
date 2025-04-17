@@ -1,4 +1,4 @@
-﻿namespace StalcraftClanManager
+namespace StalcraftClanManager
 {
     using System;
     using System.Collections.ObjectModel;
