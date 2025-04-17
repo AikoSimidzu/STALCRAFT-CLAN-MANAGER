@@ -20,4 +20,4 @@
 
 -Сортировка игроков по параметрам (для подведении статистики и т.д.)
 
-[СКАЧАТЬ](https://github.com/AikoSimidzu/STALCRAFT-CLAN-MANAGER/releases/download/1.0.1/StalcraftClanManager.rar)
+[СКАЧАТЬ](https://github.com/AikoSimidzu/STALCRAFT-CLAN-MANAGER/releases/download/1.0.4/StalcraftClanManager.rar)
