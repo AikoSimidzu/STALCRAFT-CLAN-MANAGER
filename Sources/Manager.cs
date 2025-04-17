@@ -3,7 +3,10 @@
     using System;
     using System.Collections.ObjectModel;
     using System.IO;
+    using System.Text;
+    using System.Text.Encodings.Web;
     using System.Text.Json;
+    using System.Text.Unicode;
 
     internal class Manager : IDisposable
     {        
@@ -11,7 +14,6 @@
         private ObservableCollection<string> WhiteList = new();
 
         public static ObservableCollection<Player> PlayersInClan = new();
-        public static Team _Team = new Team() { Squads = new() };
         public static Player PlayerDataForChange = new();
 
         public Manager(ObservableCollection<Player> players, ObservableCollection<string> whiteList)
@@ -23,78 +25,71 @@
         #region Калькулятор
         public string Calculate(bool withBio, bool withSpeed)
         {
-            const int squadSize = 5;
-            var squads = _Team.Squads;
-            squads.Clear();
-
+            Team team = new()
+            { Squads = new() };
             int squadsCount = (int)Math.Ceiling((double)(Players.Count / 5));
+
             for (int i = 0; i <= squadsCount; i++)
             {
-                if (withBio && i == 4)
+                if (withBio && i == (squadsCount - 1))
                 {
-                    _Team.Squads.Add(new Squad() { Name = "`БИО`", Players = new() });
-                    continue;
-                }
-                if (withSpeed && i == 5)
-                {
-                    _Team.Squads.Add(new Squad() { Name = "`РАЛИК`", Players = new() });
+                    team.Squads.Add(new Squad() { Name = "`БИО`", Players = new() });
                     continue;
                 }
 
-                _Team.Squads.Add(new Squad() { Name = $"`БОЁВКА {i + 1}`", Players = new() });
+                if (withSpeed && i == squadsCount)
+                {
+                    team.Squads.Add(new Squad() { Name = "`РАЛИК`", Players = new() });
+                    continue;
+                }
+
+                team.Squads.Add(new Squad() { Name = $"`БОЁВКА {i + 1}`", Players = new() });
             }
 
-            var whiteListSet = new HashSet<string>(WhiteList);
-            var leaders = Players
-                .Where(p => p.SquadLeader && !whiteListSet.Contains(p.Name))
-                .ToList();
+            var leaders = Players.Where(p => p.SquadLeader && !WhiteList.Contains(p.Name)).ToList();
+            var regularPlayers = Players.Where(p => !p.SquadLeader && !WhiteList.Contains(p.Name)).OrderByDescending(p => p.GS).ToList();
 
-            var regularPlayers = Players
-                .Where(p => !p.SquadLeader && !whiteListSet.Contains(p.Name))
-                .OrderByDescending(p => p.GS)
-                .ToList();
+            AddToSquad(leaders);
+            AddToSquad(regularPlayers);
 
-            void ProcessPlayer(Player player, bool isLeader)
+            void AddToSquad(List<Player> players)
             {
-                if (TryAddToSpecialSquad(player, 4, p => p.HaveBio) ||
-                    TryAddToSpecialSquad(player, 5, p => p.HaveSpeed))
-                    return;
+                int index = 0;
 
-                if (!player.HaveFight) return;
-
-                var targetSquad = squads
-                    .Take(squadsCount)
-                    .FirstOrDefault(s => s.Players.Count < squadSize);
-
-                if (targetSquad != null)
+                foreach (Player player in players)
                 {
-                    if (isLeader)
-                        targetSquad.Players.Insert(0, player);
-                    else
-                        targetSquad.Players.Add(player);
+                    if (withBio && player.HaveBio)
+                    {
+                        if (team.Squads[squadsCount - 1].Players.Count < 5)
+                        {
+                            team.Squads[squadsCount - 1].Players.Add(player);
+                            continue;
+                        }
+                    }
+                    if (withSpeed && player.HaveSpeed)
+                    {
+                        if (team.Squads[squadsCount].Players.Count < 5)
+                        {
+                            team.Squads[squadsCount].Players.Add(player);
+                            continue;
+                        }
+                    }
+
+                    if (index < squadsCount)
+                    {
+                        index++;
+                    }
+                    else { index = 0; }
+
+                    if (team.Squads[index].Players.Count < 5)
+                    {
+                        team.Squads[index].Players.Add(player);
+                    }
                 }
             }
-
-            leaders.ForEach(p => ProcessPlayer(p, isLeader: true));
-            regularPlayers.ForEach(p => ProcessPlayer(p, isLeader: false));
 
             calculateSR();
-            return NormalizeList();
-
-            bool TryAddToSpecialSquad(Player p, int index, Func<Player, bool> condition)
-            {
-                if (index < 0 || !condition(p)) return false;
-
-                var squad = squads[index];
-                if (squad.Players.Count >= squadSize) return false;
-
-                if (p.SquadLeader)
-                    squad.Players.Insert(0, p);
-                else
-                    squad.Players.Add(p);
-
-                return true;
-            }
+            return NormalizeList(team);
         }
 
         private void calculateSR()
@@ -127,22 +122,22 @@
             SaveDB();
         }
 
-        private string NormalizeList()
+        private string NormalizeList(Team team)
         {
-            string result = "";
+            StringBuilder result = new StringBuilder();
 
-            foreach (Squad squad in _Team.Squads)
+            foreach (Squad squad in team.Squads)
             {
-                result += string.Concat(squad.Name, "\n```\n");
+                result.Append(string.Concat(squad.Name, "\n```\n"));
 
                 foreach (Player pl in squad.Players)
                 {
-                    result += string.Concat(pl.Name, " | ", pl.GS, "\n");
+                    result.Append(string.Concat(pl.Name, " | ", pl.GS, "\n"));
                 }
-                result += "\n```\n";
+                result.Append("\n```\n");
             }
 
-            return result;
+            return result.ToString();
         }
         #endregion
 
@@ -174,17 +169,15 @@
 
         private static void SaveDB()
         {
-            if (File.Exists(Path.Combine(Environment.CurrentDirectory, "Players.cfg")))
-            {
-                File.Delete(Path.Combine(Environment.CurrentDirectory, "Players.cfg"));
-            }
+            StringBuilder stringBuilder = new StringBuilder();
             foreach (Player player in PlayersInClan)
             {
                 Player temp = player;
                 temp.doNotPlay = false;
                 temp.haveCause = false;
-                File.AppendAllText(Path.Combine(Environment.CurrentDirectory, "Players.cfg"), JsonSerializer.Serialize(temp) + "\n");
+                stringBuilder.Append(JsonSerializer.Serialize(temp, new JsonSerializerOptions { Encoder = JavaScriptEncoder.Create(UnicodeRanges.All), WriteIndented = false }) + "\n");
             }
+            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "Players.cfg"), stringBuilder.ToString());
         }
 
         public static void getPlayers()
@@ -204,7 +197,6 @@
         {
             Players.Clear();
             WhiteList.Clear();
-            _Team.Squads.Clear();
         }
     }
 }

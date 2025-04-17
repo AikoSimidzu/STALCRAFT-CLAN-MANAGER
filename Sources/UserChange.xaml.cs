@@ -90,7 +90,7 @@ namespace StalcraftClanManager
             pSpeed.IsChecked = pl.HaveSpeed;
             pFight.IsChecked = pl.HaveFight;
             pSR.Text = pl.SocialRating.ToString();
-            pSquadLeader.IsChecked = pl.SquadLeader;
+            pSquadLeader.IsChecked = (bool)pl.SquadLeader;
         }
 
         private void clsoe_Click(object sender, RoutedEventArgs e)

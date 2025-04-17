@@ -10,12 +10,11 @@
 
     public class Squad
     {
-        public bool HaveLeader {  get; set; }
-        public string Name { get; set; }
-        public List<Player> Players { get; set; }
+        public required string Name { get; set; }
+        public List<Player>? Players { get; set; }
     }
 
-    public struct DiscordData
+    public class DiscordData
     {
         public string WebHook { get; set; }
         public string WebHookForTable { get; set; }
